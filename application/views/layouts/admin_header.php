@@ -1,32 +1,77 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($title) ? $title.' – ' : ''; ?>Admin | E‑Shop</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <title><?php echo isset($title) ? $title.' | ' : ''; ?>Admin – Cardenza</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- Global styles reused from front‑end -->
+    <link rel="stylesheet" href="<?php echo base_url('public/assets/css/main.css'); ?>">
+
+    <!-- Optional admin specific styles -->
     <link rel="stylesheet" href="<?php echo base_url('public/assets/css/admin.css'); ?>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
 </head>
-<body>
-<div class="d-flex" id="wrapper">
-    <!-- Sidebar -->
-    <div class="bg-dark border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading text-white">Admin Panel</div>
-        <div class="list-group list-group-flush">
-            <a href="<?php echo base_url('admin/dashboard'); ?>" class="list-group-item list-group-item-action bg-dark text-white">Dashboard</a>
-            <a href="<?php echo base_url('admin/products'); ?>" class="list-group-item list-group-item-action bg-dark text-white">Products</a>
-            <a href="<?php echo base_url('admin/categories'); ?>" class="list-group-item list-group-item-action bg-dark text-white">Categories</a>
-            <a href="<?php echo base_url('admin/orders'); ?>" class="list-group-item list-group-item-action bg-dark text-white">Orders</a>
-            <a href="<?php echo base_url('admin/users'); ?>" class="list-group-item list-group-item-action bg-dark text-white">Users</a>
-            <a href="<?php echo base_url('auth/logout'); ?>" class="list-group-item list-group-item-action bg-dark text-white">Logout</a>
+<body class="bg-light">
+
+<!-- Navbar for admin area -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+    <div class="container px-5">
+        <!-- Brand / Title -->
+        <a class="navbar-brand fw-bold" href="<?php echo site_url('admin/dashboard'); ?>">Cardenza Admin</a>
+
+        <!-- Mobile toggle button -->
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#adminNavbar"
+                aria-controls="adminNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation links -->
+        <div class="collapse navbar-collapse" id="adminNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo site_url('admin/dashboard'); ?>">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo site_url('admin/products'); ?>">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo site_url('admin/categories'); ?>">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo site_url('admin/orders'); ?>">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo site_url('admin/users'); ?>">Users</a>
+                </li>
+            </ul>
+
+            <!-- Right aligned buttons / user info -->
+        <div class="d-flex align-items-center gap-3">
+            <?php $adminName = $this->session->userdata('name'); ?>
+            <?php if (!empty($adminName)) { ?>
+                <span class="text-muted me-2">Hi, <?php echo htmlspecialchars($adminName); ?></span>
+            <?php } ?>
+            <a href="<?php echo site_url('auth/logout'); ?>" class="btn btn-sm btn-danger text-white">Logout</a>
+            <a href="<?php echo site_url('home'); ?>" class="btn btn-sm btn-secondary text-white">Back to Store</a>
         </div>
     </div>
-    <!-- /#sidebar-wrapper -->
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-            <span class="navbar-text ml-3">Welcome, <?php echo $this->session->userdata('name'); ?></span>
-        </nav>
-        <div class="container-fluid mt-4">
+</nav>
+
+<!-- Wrapper for page content; top padding compensates for fixed navbar -->
+<div class="container-fluid px-5" style="padding-top: 90px;">

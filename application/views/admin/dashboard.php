@@ -1,4 +1,3 @@
-<?php $this->load->view('layouts/admin_header', ['title' => $title]); ?>
 <h2>Dashboard</h2>
 <div class="row mt-4">
     <div class="col-sm-6 col-lg-3 mb-4">
@@ -34,4 +33,3 @@
         </div>
     </div>
 </div>
-<?php $this->load->view('layouts/admin_footer'); ?>

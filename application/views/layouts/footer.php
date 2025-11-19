@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </div> <!-- /container-fluid -->
 
 <footer class="bg-white text-center py-3 border-top mt-5">
-    <small>© <?php echo date('Y'); ?> E‑Shop. All rights reserved.</small>
+    <small>© <?php echo date('Y'); ?> Cardenza. All rights reserved.</small>
 </footer>
 
 <!-- Bootstrap JS -->

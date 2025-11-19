@@ -30,7 +30,6 @@ class Cart extends MY_Controller
         $this->render('cart/index', $data);
     }
 
-    // ADD
     public function add($productId)
     {
         $userId = $this->session->userdata('user_id');
@@ -38,7 +37,10 @@ class Cart extends MY_Controller
             $this->Cart_model->addOrUpdate($userId, $productId, 1);
             $this->session->set_flashdata('success', 'Item added to cart');
         }
-        redirect('products/detail/'.$productId);
+
+        // balik ke halaman sebelumnya atau ke daftar produk
+        $ref = $this->input->server('HTTP_REFERER') ?: site_url('products');
+        redirect($ref);
     }
 
     // UPDATE

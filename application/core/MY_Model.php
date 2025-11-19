@@ -70,4 +70,9 @@ class MY_Model extends CI_Model
     {
         return $this->db->delete($this->table, [$this->primaryKey => $id]);
     }
+
+    public function countAll()
+    {
+        return $this->db->count_all($this->table);
+    }
 }

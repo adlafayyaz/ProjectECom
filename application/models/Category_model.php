@@ -18,11 +18,15 @@ class Category_model extends MY_Model
         parent::__construct();
     }
 
+    /** Ambil semua kategori. */
+    public function getAll()
+    {
+        return $this->db->get($this->table)->result_array();
+    }
+
     /** Ambil satu kategori berdasarkan slug. */
     public function getBySlug($slug)
     {
-        $query = $this->db->get_where($this->table, ['slug' => $slug]);
-
-        return $query->row_array();
+        return $this->db->get_where($this->table, ['slug' => $slug])->row_array();
     }
 }

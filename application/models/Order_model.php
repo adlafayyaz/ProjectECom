@@ -93,8 +93,8 @@ class Order_model extends MY_Model
      */
     public function getAllWithUser()
     {
-        $this->db->select('orders.*, users.name AS customer_name, users.email AS customer_email');
-        $this->db->from($this->table); // orders
+        $this->db->select('orders.*, users.name AS user_name, users.email AS user_email');
+        $this->db->from($this->table);
         $this->db->join('users', 'users.id = orders.user_id', 'left');
         $this->db->order_by('orders.order_date', 'DESC');
 

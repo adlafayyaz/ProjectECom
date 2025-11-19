@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Users extends CI_Controller
+class Users extends Admin_Controller
 {
     public function __construct()
     {
@@ -20,6 +20,6 @@ class Users extends CI_Controller
     {
         $data['title'] = 'Manage Users';
         $data['users'] = $this->User_model->getAll();
-        $this->load->view('admin/users', $data);
+        $this->render('admin/users', $data);
     }
 }

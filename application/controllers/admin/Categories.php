@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Categories extends CI_Controller
+class Categories extends Admin_Controller
 {
     public function __construct()
     {
@@ -21,7 +21,8 @@ class Categories extends CI_Controller
     {
         $data['title'] = 'Manage Categories';
         $data['categories'] = $this->Category_model->getAll();
-        $this->load->view('admin/categories', $data);
+
+        $this->render('admin/categories', $data);
     }
 
     /**
@@ -30,7 +31,9 @@ class Categories extends CI_Controller
     public function create()
     {
         $data['title'] = 'Add Category';
-        $this->load->view('admin/category_form', $data);
+
+        // pakai template admin
+        $this->render('admin/category_form', $data);
     }
 
     /**
@@ -39,17 +42,19 @@ class Categories extends CI_Controller
     public function store()
     {
         $this->form_validation->set_rules('name', 'Name', 'required');
-        if ($this->form_validation->run() === false) {
-            $this->create();
 
-            return;
+        if ($this->form_validation->run() === false) {
+            return $this->create();
         }
+
         $slug = url_title($this->input->post('name'), 'dash', true);
+
         $this->Category_model->insert([
             'name' => $this->input->post('name'),
             'slug' => $slug,
             'description' => $this->input->post('description'),
         ]);
+
         $this->session->set_flashdata('success', 'Category created');
         redirect('admin/categories');
     }
@@ -63,9 +68,11 @@ class Categories extends CI_Controller
         if (!$category) {
             show_404();
         }
+
         $data['title'] = 'Edit Category';
         $data['category'] = $category;
-        $this->load->view('admin/category_form', $data);
+
+        $this->render('admin/category_form', $data);
     }
 
     /**
@@ -77,18 +84,21 @@ class Categories extends CI_Controller
         if (!$category) {
             show_404();
         }
-        $this->form_validation->set_rules('name', 'Name', 'required');
-        if ($this->form_validation->run() === false) {
-            $this->edit($id);
 
-            return;
+        $this->form_validation->set_rules('name', 'Name', 'required');
+
+        if ($this->form_validation->run() === false) {
+            return $this->edit($id);
         }
+
         $slug = url_title($this->input->post('name'), 'dash', true);
+
         $this->Category_model->update($id, [
             'name' => $this->input->post('name'),
             'slug' => $slug,
             'description' => $this->input->post('description'),
         ]);
+
         $this->session->set_flashdata('success', 'Category updated');
         redirect('admin/categories');
     }

@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title><?php echo isset($title) ? $title.' | ' : ''; ?>E-shop</title>
+    <title><?php echo isset($title) ? $title.' | ' : ''; ?>Cardenza</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
@@ -22,12 +22,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg bg-white shadow-sm">
-    <div class="container-fluid px-5">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+    <div class="container px-5">
 
         <!-- Logo -->
         <a class="navbar-brand fw-bold" href="<?php echo site_url('home'); ?>">
-            E-Shop
+            Cardenza
         </a>
 
         <!-- Toggle mobile -->
@@ -55,6 +56,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </ul>
 
             <div class="d-flex align-items-center gap-3">
+
+                <!-- Cart -->
                 <a href="<?php echo site_url('cart'); ?>" class="text-decoration-none position-relative">
                     <i class="bi bi-cart3 fs-5"></i>
                     <?php if (!empty($cart_count)) { ?>
@@ -64,24 +67,30 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <?php } ?>
                 </a>
 
+                <!-- Favorites -->
                 <a href="<?php echo site_url('favorites'); ?>" class="text-decoration-none">
                     <i class="bi bi-heart fs-5"></i>
                 </a>
 
+                <!-- User / Login -->
                 <?php if (!empty($current_user)) { ?>
-                    <?php if ($current_user['role'] === 'admin') { ?>
+
+                    <!-- Shortcut ke admin dashboard -->
+                    <?php if (isset($current_user['role']) && $current_user['role'] === 'admin') { ?>
                         <a href="<?php echo site_url('admin/dashboard'); ?>" class="text-decoration-none">
                             <i class="bi bi-speedometer2 fs-5"></i>
                         </a>
                     <?php } ?>
 
                     <a href="<?php echo site_url('account'); ?>" class="text-decoration-none">
-                        <i class="bi bi-person fs-5 me-1"></i> <?php echo htmlspecialchars($current_user['name']); ?>
+                        <i class="bi bi-person fs-5 me-1"></i>
+                        <?php echo htmlspecialchars($current_user['name']); ?>
                     </a>
 
                     <a href="<?php echo site_url('auth/logout'); ?>" class="btn btn-sm btn-outline-danger">
                         Logout
                     </a>
+
                 <?php } else { ?>
                     <a href="<?php echo site_url('auth/login'); ?>" class="btn btn-sm btn-outline-dark">
                         Login
@@ -92,4 +101,5 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
 </nav>
 
+<!-- wrapper konten -->
 <div class="container-fluid px-0">
