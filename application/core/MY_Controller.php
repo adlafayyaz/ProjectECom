@@ -3,7 +3,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * Base controller untuk USER (front site).
+ * Base controller untuk user (frontend).
  */
 class MY_Controller extends CI_Controller
 {
@@ -24,19 +24,22 @@ class MY_Controller extends CI_Controller
 
         $userId = $this->session->userdata('user_id');
 
-        // Current user
+        // Ambil data user login
         if ($userId) {
             $this->load->model('User_model');
             $this->data['current_user'] = $this->User_model->getById($userId);
         }
 
-        // Cart count
+        // Hitung item cart
         if ($userId) {
             $this->load->model('Cart_model');
             $this->data['cart_count'] = $this->Cart_model->countItems($userId);
         }
     }
 
+    /**
+     * Render halaman user.
+     */
     protected function render($view, $data = [], $return = false)
     {
         $data = array_merge($this->data, $data);
@@ -54,7 +57,7 @@ class MY_Controller extends CI_Controller
 }
 
 /**
- * Base controller untuk ADMIN (dashboard).
+ * Base controller untuk admin (backend).
  */
 class Admin_Controller extends CI_Controller
 {
@@ -67,7 +70,7 @@ class Admin_Controller extends CI_Controller
         $this->load->library('session');
         $this->load->helper(['url', 'form', 'security']);
 
-        // WAJIB admin
+        // Wajib admin
         if ($this->session->userdata('role') !== 'admin') {
             redirect('auth/login');
         }
@@ -79,19 +82,14 @@ class Admin_Controller extends CI_Controller
     }
 
     /**
-     * $view di sini kamu isi dengan:
-     *  - 'admin/dashboard'
-     *  - 'admin/products'
-     *  - 'admin/categories'
-     *  - 'admin/orders'
-     *  - 'admin/users'
+     * Render halaman admin.
      */
     protected function render($view, $data = [], $return = false)
     {
         $data = array_merge($this->data, $data);
 
         $output = $this->load->view('layouts/admin_header', $data, true);
-        $output .= $this->load->view($view, $data, true);   // CUMA SATU VIEW
+        $output .= $this->load->view($view, $data, true);
         $output .= $this->load->view('layouts/admin_footer', $data, true);
 
         if ($return) {

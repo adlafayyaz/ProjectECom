@@ -2,12 +2,11 @@
 /**
  * CodeIgniter Front Controller.
  *
- * Memindahkan file index.php ke folder public adalah praktek umum
- * untuk menutup akses langsung ke file system dan application.
- * File ini mengatur path ke sistem dan aplikasi, kemudian menjalankan CodeIgniter.
+ * File ini adalah titik masuk utama aplikasi (public/index.php)
+ * Mengatur path system & application, lalu menjalankan CodeIgniter.
  */
 
-// Tentukan environment aplikasi (development/production)
+// Tentukan environment aplikasi
 define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
 /*
@@ -15,6 +14,7 @@ define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'developm
  *  System and Application Paths
  *---------------------------------------------------------------
  */
+
 // Lokasi folder system
 $system_path = realpath(__DIR__.'/../system');
 // Lokasi folder application
@@ -26,12 +26,12 @@ if ($system_path === false) {
     exit('Your system folder path does not appear to be set correctly.');
 }
 
-// Definisikan konstanta yang dibutuhkan
+// Definisikan konstanta penting
 define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 define('BASEPATH', $system_path.DIRECTORY_SEPARATOR);
 define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
 define('FCPATH', __DIR__.DIRECTORY_SEPARATOR);
 define('SYSDIR', basename(BASEPATH));
 
-// Jalankan CodeIgniter
+// Jalankan CodeIgniter core
 require_once BASEPATH.'core/CodeIgniter.php';

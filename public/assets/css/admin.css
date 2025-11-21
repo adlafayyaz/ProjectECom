@@ -1,4 +1,6 @@
-/* Stylesheet untuk area Admin */
+/* =========================================
+   GLOBAL ADMIN STYLES
+   ========================================= */
 
 body {
     margin: 0;
@@ -13,24 +15,54 @@ body {
     min-height: 100vh;
 }
 
+/* =========================================
+   BADGES & ADMIN UTILITIES
+   ========================================= */
+
+.admin-badge {
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #777;
+    position: relative;
+    top: 1px;
+}
+
+.admin-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+/* =========================================
+   SIDEBAR (Jika dipakai)
+   ========================================= */
+
 .admin-sidebar {
     width: 220px;
     background-color: #2c3e50;
     color: #ecf0f1;
     padding: 1rem;
 }
+
 .admin-sidebar h2 {
     margin-top: 0;
     font-size: 1.5rem;
     color: #ecf0f1;
 }
+
 .admin-sidebar ul {
     list-style: none;
     padding: 0;
 }
+
 .admin-sidebar li {
     margin: 0.5rem 0;
 }
+
 .admin-sidebar a {
     color: #ecf0f1;
     text-decoration: none;
@@ -38,32 +70,46 @@ body {
     display: block;
     border-radius: 4px;
 }
+
 .admin-sidebar a:hover {
     background-color: #34495e;
 }
+
+/* =========================================
+   CONTENT
+   ========================================= */
 
 .admin-content {
     flex: 1;
     padding: 2rem;
 }
 
+/* =========================================
+   TABLE STYLING
+   ========================================= */
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 2rem;
 }
+
 table th,
 table td {
     padding: 0.75rem 1rem;
     text-align: left;
     border-bottom: 1px solid #ccc;
 }
+
 table th {
     background-color: #ecf0f1;
     font-weight: 600;
 }
 
-/* Buttons */
+/* =========================================
+   BUTTONS
+   ========================================= */
+
 .btn {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -73,18 +119,24 @@ table th {
     margin-right: 0.5rem;
     font-size: 0.9rem;
 }
+
+/* Primary */
 .btn-primary {
     background-color: #3498db;
 }
 .btn-primary:hover {
     background-color: #2980b9;
 }
+
+/* Danger */
 .btn-danger {
     background-color: #e74c3c;
 }
 .btn-danger:hover {
     background-color: #c0392b;
 }
+
+/* Success */
 .btn-success {
     background-color: #2ecc71;
 }

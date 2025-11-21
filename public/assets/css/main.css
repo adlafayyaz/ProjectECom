@@ -1,79 +1,114 @@
+/* Global reset & layout dasar */
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html,
 body {
-    font-family: "Poppins", sans-serif;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden !important;
+	font-family: "Poppins", sans-serif;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	overflow-x: hidden !important;
 }
 
+/* Jeda untuk navbar fixed-top */
 body {
-    padding-top: 72px;
+	padding-top: 72px;
 }
 
-/* Navbar */
+/* ============================
+   NAVBAR
+   ============================ */
+
+/* Navbar spacing */
 .navbar {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-.navbar > .container {
-    max-width: 12000px;
-    margin: 0 auto;
-    padding-left: 32px;
-    padding-right: 32px;
-}
-.navbar-nav .nav-link {
-    padding: 0 1rem;
-    font-weight: 500;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 }
 
+/* Brand di navbar (logo teks CARDENZA) */
+.header-brand {
+	font-weight: 400;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	font-size: 1.5rem;
+	color: #000000;
+}
+
+/* Brand saat hover */
+.header-brand:hover {
+	color: #000000;
+}
+
+/* Atur lebar container navbar */
+.navbar > .container {
+	max-width: 12000px;
+	margin: 0 auto;
+	padding-left: 32px;
+	padding-right: 32px;
+}
+
+/* Link menu di navbar */
+.navbar-nav .nav-link {
+	padding: 0 1rem;
+	font-weight: 200;
+	font-family: Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+/* Warna link saat hover/fokus */
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link:focus {
-    color: #0d6efd;
+	color: #000000;
 }
 
-/* Hero section */
+/* ============================
+   HERO SECTION
+   ============================ */
+
 .hero-section {
-    position: relative;
-    width: 100%;
-    height: 75vh;
-    overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 75vh;
+	overflow: hidden;
 }
 
+/* Background hero full bleed */
 .hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
 }
 
+/* Layer gelap di atas gambar */
 .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.35);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.35);
 }
 
+/* Konten teks hero */
 .hero-content {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    transform: translateY(-50%);
-    max-width: 50%;
+	position: absolute;
+	top: 50%;
+	left: 10%;
+	transform: translateY(-50%);
+	max-width: 50%;
 }
 
+/* Tekankan kata miring */
 .hero-content h1 em {
-    font-style: italic;
-    opacity: 0.85;
+	font-style: italic;
+	opacity: 0.85;
 }
 
 /* ============================
@@ -81,66 +116,325 @@ body {
    ============================ */
 
 .find-look-section {
-    background: #f8f9fa;
+	background: #f8f9fa;
 }
 
-/* supaya tidak nempel ke kiri-kanan: pakai container + sedikit max width */
+/* Batasi lebar konten section */
 .find-look-section .container {
-    max-width: 2000px;
+	max-width: 2000px;
 }
 
-/* Card look */
+/* Card kategori look (Women/Men/Kids) */
 .look-box {
-    position: relative;
-    display: block;
-    border-radius: 18px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform .25s ease, box-shadow .25s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    background: #000;
+	position: relative;
+	display: block;
+	border-radius: 18px;
+	overflow: hidden;
+	cursor: pointer;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+	background: #000;
 }
 
+/* Efek hover card */
 .look-box:hover {
-    transform: scale(1.02);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+	transform: scale(1.02);
+	box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
 }
 
+/* Gambar di dalam look-box */
 .look-img {
-    width: 100%;
-    height: 350px;
-    background-size: cover;
-    background-position: center;
-    display: block;
+	width: 100%;
+	height: 350px;
+	background-size: cover;
+	background-position: center;
+	display: block;
 }
 
-/* Label di bawah tengah dalam card */
+/* Label nama kategori di bawah card */
 .look-label {
-    position: absolute;
-    bottom: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px 24px;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: #000;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(4px);
-    transition: 0.2s ease-in-out;
+	position: absolute;
+	bottom: 18px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: rgba(255, 255, 255, 0.9);
+	padding: 10px 24px;
+	border-radius: 999px;
+	font-weight: 600;
+	font-size: 1.05rem;
+	color: #000;
+	box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+	backdrop-filter: blur(4px);
+	transition: 0.2s ease-in-out;
 }
 
 .look-box:hover .look-label {
-    background: #ffffff;
+	background: #ffffff;
 }
 
-/* Footer */
-footer {
-    background: #ffffff;
-    font-size: 0.9rem;
-    color: #6c757d;
-    padding: 1.5rem 0;     /* tingginya dibesarkan */
-    margin-top: 3rem;
-    border-top: 1px solid #e9ecef;
+/* ============================
+   BEST SELLERS SECTION
+   ============================ */
+
+.best-seller-section {
+	background-color: #f8f9fa;
+	padding-bottom: 4rem;
+}
+
+/* Link "View All" */
+.view-all-link {
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: #000;
+	text-decoration: none;
+	border-bottom: 1px solid transparent;
+	transition: all 0.3s ease;
+}
+
+.view-all-link:hover {
+	border-bottom: 1px solid #000;
+	color: #000;
+}
+
+/* Wrapper card produk best seller */
+.product-card {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	text-decoration: none;
+	color: inherit;
+}
+
+/* Bungkus gambar produk */
+.product-img-wrap {
+	position: relative;
+	overflow: hidden;
+	height: 260px;
+	width: 100%;
+	background-color: #f4f4f4;
+	border-radius: 12px;
+}
+
+/* Gambar produk (cover) */
+.product-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Efek zoom gambar pada hover */
+.product-card:hover .product-img {
+	transform: scale(1.08);
+}
+
+/* Badge kategori kecil di pojok gambar */
+.badge-category {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	background: rgba(255, 255, 255, 0.85);
+	padding: 4px 8px;
+	color: #333;
+	z-index: 2;
+	border-radius: 999px;
+}
+
+/* Tombol "View Details" muncul saat hover */
+.product-action {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 16px;
+	display: flex;
+	justify-content: center;
+	opacity: 0;
+	transform: translateY(20px);
+	transition: all 0.3s ease;
+	z-index: 3;
+}
+
+.product-card:hover .product-action {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Judul produk */
+.product-title {
+	font-size: 1rem;
+	font-weight: 400;
+	margin-bottom: 0.25rem;
+	color: #111;
+}
+
+/* Harga produk */
+.product-price {
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: #545454;
+}
+
+/* Ikon kecil (heart) */
+.small-icon {
+	font-size: 0.9rem;
+	transition: color 0.2s;
+}
+
+.product-card:hover .small-icon {
+	color: #dc3545;
+}
+
+/* ============================
+   PRODUCT LISTING (All Products)
+   ============================ */
+
+/* Gambar di kartu list produk */
+.product-list-image {
+	width: 100%;
+	height: 260px;
+	object-fit: cover;
+	border-radius: 6px 6px 0 0;
+}
+
+/* ============================
+   CART PAGE
+   ============================ */
+
+.cart-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.cart-table th,
+.cart-table td {
+	vertical-align: middle;
+	border-bottom: 1px solid #dee2e6;
+}
+
+/* Info produk dalam cart (gambar + nama) */
+.cart-product-info {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.cart-product-info img {
+	width: 60px;
+	height: 60px;
+	object-fit: cover;
+	border-radius: 6px;
+}
+
+/* ============================
+   CHECKOUT MODAL
+   ============================ */
+
+.checkout-modal .modal-content {
+	border-radius: 18px;
+	border: none;
+	box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+}
+
+.checkout-modal .modal-header {
+	padding-bottom: 0.5rem;
+}
+
+.checkout-modal .modal-title {
+	font-weight: 600;
+}
+
+.checkout-modal .modal-body {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	font-size: 0.95rem;
+}
+
+.checkout-modal .modal-body p.text-muted {
+	font-size: 0.9rem;
+}
+
+.checkout-modal .modal-footer {
+	padding-top: 0.75rem;
+}
+
+/* Gambar di halaman detail produk */
+.product-detail-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 6px;
+}
+
+/* ============================
+   FOOTER FRONTEND
+   ============================ */
+
+.cardenza-footer {
+	background-color: #000000;
+	color: #999999;
+	padding-top: 60px;
+	padding-bottom: 20px;
+	font-size: 0.85rem;
+	margin-top: 5rem;
+}
+
+/* Brand di footer */
+.footer-brand {
+	color: #ffffff;
+	font-weight: 400;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	font-size: 1.5rem;
+}
+
+/* Paragraf deskripsi footer */
+.footer-desc {
+	line-height: 1.6;
+	margin-bottom: 1rem;
+	font-size: 0.8rem;
+	color: #b0b0b0;
+}
+
+/* Judul kolom footer */
+.footer-title {
+	color: #ffffff;
+	font-weight: 700;
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 1.25rem;
+}
+
+/* List link footer */
+.footer-links li {
+	margin-bottom: 10px;
+}
+
+.footer-links a {
+	color: #999999;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+/* Garis pembatas footer */
+.footer-divider {
+	border-color: #333333;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+
+/* Copyright */
+.footer-copyright {
+	color: #666666;
 }

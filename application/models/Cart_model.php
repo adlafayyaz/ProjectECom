@@ -13,16 +13,12 @@ class Cart_model extends MY_Model
     }
 
     /**
-     * Ambil semua item cart milik user, lengkap dengan data produk.
-     *
-     * @param int $userId
-     *
-     * @return array
+     * Ambil semua item cart user.
      */
     public function getItems($userId)
     {
         $this->db->select('cart_items.*, products.name, products.price, products.image, products.slug');
-        $this->db->from($this->table); // cart_items
+        $this->db->from($this->table);
         $this->db->join('products', 'products.id = cart_items.product_id', 'left');
         $this->db->where('cart_items.user_id', $userId);
 
@@ -30,12 +26,7 @@ class Cart_model extends MY_Model
     }
 
     /**
-     * Hitung total item (bisa jumlah baris atau jumlah quantity).
-     * Di sini saya pakai jumlah baris cart (1 produk = 1 item).
-     *
-     * @param int $userId
-     *
-     * @return int
+     * Hitung total item di cart.
      */
     public function countItems($userId)
     {
@@ -46,19 +37,12 @@ class Cart_model extends MY_Model
     }
 
     /**
-     * Tambah atau update item di cart.
-     * Jika sudah ada baris untuk (user, product), quantity akan ditambah.
-     *
-     * @param int $userId
-     * @param int $productId
-     * @param int $qty
-     *
-     * @return bool
+     * Tambah atau update item.
      */
     public function addOrUpdate($userId, $productId, $qty = 1)
     {
         $existing = $this->db->get_where($this->table, [
-            'user_id' => $userId,
+            'user_id'    => $userId,
             'product_id' => $productId,
         ])->row_array();
 
@@ -70,14 +54,14 @@ class Cart_model extends MY_Model
         }
 
         return $this->insert([
-            'user_id' => $userId,
+            'user_id'    => $userId,
             'product_id' => $productId,
-            'quantity' => $qty,
+            'quantity'   => $qty,
         ]);
     }
 
     /**
-     * Update quantity spesifik.
+     * Update quantity item.
      */
     public function updateQuantity($userId, $productId, $qty)
     {
@@ -88,7 +72,7 @@ class Cart_model extends MY_Model
     }
 
     /**
-     * Hapus satu item dari cart.
+     * Hapus satu item.
      */
     public function removeItem($userId, $productId)
     {
@@ -99,7 +83,7 @@ class Cart_model extends MY_Model
     }
 
     /**
-     * Kosongkan cart user.
+     * Kosongkan cart.
      */
     public function clearCart($userId)
     {

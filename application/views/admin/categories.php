@@ -1,5 +1,12 @@
+<!-- Halaman list categories -->
 <h2>Manage Categories</h2>
-<a href="<?php echo base_url('admin/categories/create'); ?>" class="btn btn-success mb-3">Add New Category</a>
+
+<!-- Tombol tambah kategori -->
+<a href="<?php echo base_url('admin/categories/create'); ?>" class="btn btn-success mb-3">
+    Add New Category
+</a>
+
+<!-- Tabel daftar kategori -->
 <table class="table table-striped">
     <thead>
         <tr>
@@ -17,13 +24,21 @@
                 <td><?php echo htmlspecialchars($cat['name']); ?></td>
                 <td><?php echo htmlspecialchars($cat['slug']); ?></td>
                 <td class="text-end">
-                    <a href="<?php echo base_url('admin/categories/edit/'.$cat['id']); ?>" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="<?php echo base_url('admin/categories/delete/'.$cat['id']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this category?')">Delete</a>
+                    <a href="<?php echo base_url('admin/categories/edit/'.$cat['id']); ?>" class="btn btn-sm btn-primary">
+                        Edit
+                    </a>
+                    <a href="<?php echo base_url('admin/categories/delete/'.$cat['id']); ?>"
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('Delete this category?')">
+                        Delete
+                    </a>
                 </td>
             </tr>
         <?php }
             } else { ?>
-            <tr><td colspan="4">No categories.</td></tr>
-            <?php } ?>
+            <tr>
+                <td colspan="4">No categories.</td>
+            </tr>
+        <?php } ?>
     </tbody>
 </table>

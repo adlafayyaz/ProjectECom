@@ -17,21 +17,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <!-- Global styles reused from front‑end -->
+    <!-- Global styles (front) -->
     <link rel="stylesheet" href="<?php echo base_url('public/assets/css/main.css'); ?>">
 
-    <!-- Optional admin specific styles -->
+    <!-- Admin specific styles -->
     <link rel="stylesheet" href="<?php echo base_url('public/assets/css/admin.css'); ?>">
 </head>
 <body class="bg-light">
 
-<!-- Navbar for admin area -->
+<!-- Navbar area admin -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
     <div class="container px-5">
-        <!-- Brand / Title -->
-        <a class="navbar-brand fw-bold" href="<?php echo site_url('admin/dashboard'); ?>">Cardenza Admin</a>
 
-        <!-- Mobile toggle button -->
+        <!-- Brand Admin -->
+        <a class="navbar-brand header-brand d-flex align-items-baseline"
+           href="<?php echo site_url('admin/dashboard'); ?>">
+            <span>CARDENZA</span>
+            <span class="admin-badge ms-2">Admin</span>
+        </a>
+
+        <!-- Toggle mobile -->
         <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#adminNavbar"
@@ -41,9 +46,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Navigation links -->
+        <!-- Menu admin -->
         <div class="collapse navbar-collapse" id="adminNavbar">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav ms-4 me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo site_url('admin/dashboard'); ?>">Dashboard</a>
                 </li>
@@ -61,17 +66,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </li>
             </ul>
 
-            <!-- Right aligned buttons / user info -->
-        <div class="d-flex align-items-center gap-3">
-            <?php $adminName = $this->session->userdata('name'); ?>
-            <?php if (!empty($adminName)) { ?>
-                <span class="text-muted me-2">Hi, <?php echo htmlspecialchars($adminName); ?></span>
-            <?php } ?>
-            <a href="<?php echo site_url('auth/logout'); ?>" class="btn btn-sm btn-danger text-white">Logout</a>
-            <a href="<?php echo site_url('home'); ?>" class="btn btn-sm btn-secondary text-white">Back to Store</a>
+            <!-- Info admin + tombol -->
+            <div class="d-flex align-items-center gap-3">
+                <?php $adminName = $this->session->userdata('name'); ?>
+                <?php if (!empty($adminName)) { ?>
+                    <span class="text-muted">
+                        Hi, <?php echo htmlspecialchars($adminName); ?>
+                    </span>
+                <?php } ?>
+
+                <a href="<?php echo site_url('auth/logout'); ?>"
+                   class="btn admin-btn btn-danger text-white">
+                    Logout
+                </a>
+
+                <a href="<?php echo site_url('home'); ?>"
+                   class="btn admin-btn btn-secondary text-white">
+                    Back to Store
+                </a>
+            </div>
         </div>
     </div>
 </nav>
 
-<!-- Wrapper for page content; top padding compensates for fixed navbar -->
+<!-- Wrapper konten admin -->
 <div class="container-fluid px-5" style="padding-top: 90px;">

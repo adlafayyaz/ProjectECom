@@ -1,4 +1,6 @@
+<!-- Halaman Manage Users -->
 <h2>Manage Users</h2>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -20,6 +22,6 @@
         <?php }
             } else { ?>
             <tr><td colspan="4">No users found.</td></tr>
-            <?php } ?>
+        <?php } ?>
     </tbody>
 </table>

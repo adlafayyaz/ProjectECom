@@ -10,9 +10,12 @@ class Account extends MY_Controller
         $this->load->model('Order_model');
     }
 
+    /**
+     * Halaman akun user.
+     */
     public function index()
     {
-        // Harus login dulu
+        // Wajib login
         if (!$this->session->userdata('user_id')) {
             redirect('auth/login');
         }

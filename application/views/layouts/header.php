@@ -13,7 +13,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           crossorigin="anonymous">
 
-    <!-- Bootstrap Icons -->
+    <!-- Bootstrap icons -->
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
@@ -22,13 +22,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </head>
 <body class="bg-light">
 
-<!-- NAVBAR -->
+<!-- Navbar utama -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
     <div class="container px-5">
 
-        <!-- Logo -->
-        <a class="navbar-brand fw-bold" href="<?php echo site_url('home'); ?>">
-            Cardenza
+        <!-- Logo / brand -->
+        <a class="navbar-brand header-brand" href="<?php echo site_url('home'); ?>">
+            CARDENZA
         </a>
 
         <!-- Toggle mobile -->
@@ -41,7 +41,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Menu -->
+        <!-- Menu utama -->
         <div class="collapse navbar-collapse" id="mainNavbar">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -55,44 +55,48 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </li>
             </ul>
 
+            <!-- Ikon cart, favorites, akun -->
             <div class="d-flex align-items-center gap-3">
 
-                <!-- Cart -->
-                <a href="<?php echo site_url('cart'); ?>" class="text-decoration-none position-relative">
+                <!-- Cart icon -->
+                <a href="<?php echo site_url('cart'); ?>" class="text-decoration-none text-dark position-relative d-flex align-items-center">
                     <i class="bi bi-cart3 fs-5"></i>
                     <?php if (!empty($cart_count)) { ?>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" style="font-size: 0.6rem;">
                             <?php echo $cart_count; ?>
                         </span>
                     <?php } ?>
                 </a>
 
-                <!-- Favorites -->
-                <a href="<?php echo site_url('favorites'); ?>" class="text-decoration-none">
+                <!-- Favorites icon -->
+                <a href="<?php echo site_url('favorites'); ?>" class="text-decoration-none text-dark d-flex align-items-center"> 
                     <i class="bi bi-heart fs-5"></i>
                 </a>
 
-                <!-- User / Login -->
+                <!-- Logic user login -->
                 <?php if (!empty($current_user)) { ?>
 
-                    <!-- Shortcut ke admin dashboard -->
+                    <!-- Shortcut admin dashboard -->
                     <?php if (isset($current_user['role']) && $current_user['role'] === 'admin') { ?>
-                        <a href="<?php echo site_url('admin/dashboard'); ?>" class="text-decoration-none">
+                        <a href="<?php echo site_url('admin/dashboard'); ?>" class="text-decoration-none text-dark d-flex align-items-center" title="Admin Dashboard">
                             <i class="bi bi-speedometer2 fs-5"></i>
                         </a>
                     <?php } ?>
 
-                    <a href="<?php echo site_url('account'); ?>" class="text-decoration-none">
+                    <!-- Link ke halaman akun -->
+                    <a href="<?php echo site_url('account'); ?>" class="text-decoration-none text-dark d-flex align-items-center">
                         <i class="bi bi-person fs-5 me-1"></i>
-                        <?php echo htmlspecialchars($current_user['name']); ?>
+                        <span class="fw-medium"><?php echo htmlspecialchars($current_user['name']); ?></span>
                     </a>
 
-                    <a href="<?php echo site_url('auth/logout'); ?>" class="btn btn-sm btn-outline-danger">
+                    <!-- Tombol logout -->
+                    <a href="<?php echo site_url('auth/logout'); ?>" class="btn btn-sm btn-outline-danger ms-2">
                         Logout
                     </a>
 
                 <?php } else { ?>
-                    <a href="<?php echo site_url('auth/login'); ?>" class="btn btn-sm btn-outline-dark">
+                    <!-- Tombol login kalau belum login -->
+                    <a href="<?php echo site_url('auth/login'); ?>" class="btn btn-sm btn-outline-dark ms-2">
                         Login
                     </a>
                 <?php } ?>
@@ -101,5 +105,5 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
 </nav>
 
-<!-- wrapper konten -->
+<!-- Wrapper konten utama -->
 <div class="container-fluid px-0">

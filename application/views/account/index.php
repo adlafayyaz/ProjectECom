@@ -2,7 +2,7 @@
     <h1 class="h3 mb-4">My Account</h1>
 
     <div class="row">
-        <!-- Profile -->
+        <!-- Profile card -->
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-header">
@@ -11,25 +11,17 @@
                 <div class="card-body">
                     <p class="mb-1">
                         <strong>Name:</strong><br>
-                        <?php
-                        echo htmlspecialchars(
-                            $current_user['name'] ?? ($user['name'] ?? '-')
-                        );
-                        ?>
+                        <?php echo htmlspecialchars($current_user['name'] ?? '-'); ?>
                     </p>
                     <p class="mb-1">
                         <strong>Email:</strong><br>
-                        <?php
-                        echo htmlspecialchars(
-                            $current_user['email'] ?? ($user['email'] ?? '-')
-                        );
-                        ?>
+                        <?php echo htmlspecialchars($current_user['email'] ?? '-'); ?>
                     </p>
                 </div>
             </div>
         </div>
 
-        <!-- Order history -->
+        <!-- Order history card -->
         <div class="col-md-8 mb-4">
             <div class="card h-100">
                 <div class="card-header">
@@ -79,6 +71,7 @@
         </div>
     </div>
 
+    <!-- Logout button -->
     <div class="mt-3">
         <a href="<?php echo site_url('auth/logout'); ?>" class="btn btn-outline-danger">
             Logout

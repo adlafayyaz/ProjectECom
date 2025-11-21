@@ -3,22 +3,11 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * Base model untuk operasi CRUD umum.
+ * Base model CRUD.
  */
 class MY_Model extends CI_Model
 {
-    /**
-     * Nama tabel, didefinisikan di kelas turunan.
-     *
-     * @var string
-     */
     protected $table;
-
-    /**
-     * Nama primary key, didefinisikan di kelas turunan.
-     *
-     * @var string
-     */
     protected $primaryKey;
 
     public function __construct()
@@ -36,17 +25,16 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * Ambil satu data berdasarkan primary key.
+     * Ambil data by ID.
      */
     public function getById($id)
     {
         $query = $this->db->get_where($this->table, [$this->primaryKey => $id]);
-
         return $query->row_array();
     }
 
     /**
-     * Tambah data baru.
+     * Insert data.
      */
     public function insert(array $data)
     {
@@ -54,23 +42,25 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * Update data berdasarkan primary key.
+     * Update data.
      */
     public function update($id, array $data)
     {
         $this->db->where($this->primaryKey, $id);
-
         return $this->db->update($this->table, $data);
     }
 
     /**
-     * Hapus data berdasarkan primary key.
+     * Hapus data.
      */
     public function delete($id)
     {
         return $this->db->delete($this->table, [$this->primaryKey => $id]);
     }
 
+    /**
+     * Hitung total data.
+     */
     public function countAll()
     {
         return $this->db->count_all($this->table);

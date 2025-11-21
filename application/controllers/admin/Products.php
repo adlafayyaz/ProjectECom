@@ -9,14 +9,15 @@ class Products extends Admin_Controller
         parent::__construct();
         $this->load->model(['Product_model', 'Category_model']);
         $this->load->library(['form_validation', 'upload']);
-        // cek admin sudah dilakukan di Admin_Controller, jadi ini sebenarnya boleh dihapus
+
+        // Hanya admin yang boleh akses
         if ($this->session->userdata('role') !== 'admin') {
             redirect('auth/login');
         }
     }
 
     /**
-     * List produk dengan opsi search.
+     * List produk + search.
      */
     public function index()
     {
@@ -37,12 +38,11 @@ class Products extends Admin_Controller
         $data['title'] = 'Add Product';
         $data['categories'] = $this->Category_model->getAll();
 
-        // PENTING: pakai render, bukan load->view
         $this->render('admin/product_form', $data);
     }
 
     /**
-     * Menyimpan produk baru ke database.
+     * Simpan produk baru.
      */
     public function store()
     {
@@ -51,12 +51,12 @@ class Products extends Admin_Controller
         $this->form_validation->set_rules('category_id', 'Category', 'required');
 
         if ($this->form_validation->run() === false) {
-            // tampilkan lagi form dengan template admin
             return $this->create();
         }
 
-        // upload gambar jika ada
         $imagePath = null;
+
+        // Upload gambar
         if (!empty($_FILES['image']['name'])) {
             $config['upload_path'] = './public/assets/images/products/';
             $config['allowed_types'] = 'jpg|jpeg|png';
@@ -93,8 +93,6 @@ class Products extends Admin_Controller
 
     /**
      * Form edit produk.
-     *
-     * @param int $id
      */
     public function edit($id)
     {
@@ -107,14 +105,11 @@ class Products extends Admin_Controller
         $data['product'] = $product;
         $data['categories'] = $this->Category_model->getAll();
 
-        // pakai template admin
         $this->render('admin/product_form', $data);
     }
 
     /**
-     * Memperbarui data produk.
-     *
-     * @param int $id
+     * Update produk.
      */
     public function update($id)
     {
@@ -131,9 +126,10 @@ class Products extends Admin_Controller
             return $this->edit($id);
         }
 
-        // handle upload gambar baru jika ada
+        // Pakai gambar lama jika tidak upload baru
         $imagePath = is_array($product) ? $product['image'] : $product->image;
 
+        // Upload gambar baru jika ada
         if (!empty($_FILES['image']['name'])) {
             $config['upload_path'] = './public/assets/images/products/';
             $config['allowed_types'] = 'jpg|jpeg|png';
@@ -145,7 +141,7 @@ class Products extends Admin_Controller
                 $dataUpload = $this->upload->data();
                 $imagePath = 'products/'.$dataUpload['file_name'];
 
-                // hapus file lama bila ada
+                // Hapus gambar lama
                 $oldImage = is_array($product) ? $product['image'] : $product->image;
                 if ($oldImage && file_exists('./public/assets/images/'.$oldImage)) {
                     unlink('./public/assets/images/'.$oldImage);
@@ -175,15 +171,15 @@ class Products extends Admin_Controller
     }
 
     /**
-     * Menghapus produk.
-     *
-     * @param int $id
+     * Hapus produk.
      */
     public function delete($id)
     {
         $product = $this->Product_model->getById($id);
+
         if ($product) {
             $img = is_array($product) ? $product['image'] : $product->image;
+
             if ($img && file_exists('./public/assets/images/'.$img)) {
                 unlink('./public/assets/images/'.$img);
             }

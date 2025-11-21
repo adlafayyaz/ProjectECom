@@ -1,3 +1,4 @@
+<!-- Halaman My Favorites -->
 <div class="container my-5">
     <h2 class="mb-4">My Favorites</h2>
 
@@ -10,6 +11,7 @@
                 $image = !empty($item['image']) ? $item['image'] : 'placeholder.jpg';
                 ?>
                 <div class="col-sm-6 col-md-4 col-lg-3">
+                    <!-- Card produk favorit -->
                     <div class="card h-100 shadow-sm border-0">
                         <img
                             src="<?php echo base_url('public/assets/images/'.$image); ?>"

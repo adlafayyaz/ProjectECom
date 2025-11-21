@@ -1,5 +1,6 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class About extends MY_Controller
 {
@@ -8,6 +9,9 @@ class About extends MY_Controller
         parent::__construct();
     }
 
+    /**
+     * Tampilkan halaman About.
+     */
     public function index()
     {
         $data['title'] = 'About';

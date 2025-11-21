@@ -3,13 +3,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * Model pesanan untuk tabel `orders`.
- *
- * Menyediakan metode untuk:
- * - membuat pesanan baru beserta item-itemnya,
- * - mengambil pesanan berdasarkan pengguna,
- * - menampilkan pesanan dengan informasi user,
- * - dan mengambil detail pesanan lengkap dengan item-itemnya.
+ * Model pesanan.
  */
 class Order_model extends MY_Model
 {
@@ -19,26 +13,20 @@ class Order_model extends MY_Model
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Order_item_model'); // untuk menyimpan order_items
+        $this->load->model('Order_item_model');
+        $this->load->model('Cart_model');
     }
 
     /**
-     * Buat pesanan baru beserta item-itemnya.
-     *
-     * @param array $orderData Data order: ['user_id', 'total_price', 'status', ...]
-     * @param array $itemsData Array item: [['product_id', 'quantity', 'price'], ...]
-     *
-     * @return int|false ID order jika sukses, false jika gagal
+     * Membuat satu pesanan beserta item-itemnya.
      */
     public function createOrder(array $orderData, array $itemsData)
     {
         $this->db->trans_start();
 
-        // Insert ke tabel orders
         $this->db->insert($this->table, $orderData);
         $orderId = $this->db->insert_id();
 
-        // Insert item-itemnya
         foreach ($itemsData as $item) {
             $item['order_id'] = $orderId;
             $this->Order_item_model->insert($item);
@@ -46,39 +34,56 @@ class Order_model extends MY_Model
 
         $this->db->trans_complete();
 
-        if ($this->db->trans_status() === false) {
+        return $this->db->trans_status() ? $orderId : false;
+    }
+
+    /**
+     * Membuat pesanan baru berdasarkan isi cart user.
+     */
+    public function createFromCart($userId)
+    {
+        $cartItems = $this->Cart_model->getItems($userId);
+        if (empty($cartItems)) {
             return false;
+        }
+
+        $total = 0;
+        $itemsData = [];
+
+        foreach ($cartItems as $item) {
+            $subtotal = $item['price'] * $item['quantity'];
+            $total += $subtotal;
+
+            $itemsData[] = [
+                'product_id' => $item['product_id'],
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+            ];
+        }
+
+        $orderData = [
+            'user_id' => $userId,
+            'total_price' => $total,
+            'status' => 'pending',
+            'order_date' => date('Y-m-d H:i:s'),
+        ];
+
+        $orderId = $this->createOrder($orderData, $itemsData);
+
+        if ($orderId) {
+            $this->Cart_model->clearCart($userId);
         }
 
         return $orderId;
     }
 
     /**
-     * Ambil semua pesanan milik satu user (simple, tanpa join).
-     *
-     * @param int $userId
-     *
-     * @return array
-     */
-    public function getByUser($userId)
-    {
-        $query = $this->db->get_where($this->table, ['user_id' => $userId]);
-
-        return $query->result_array();
-    }
-
-    /**
-     * Versi lain yang namanya cocok dengan Account controller:
-     * Ambil pesanan milik user, bisa ditambah join ke tabel users kalau perlu.
-     *
-     * @param int $userId
-     *
-     * @return array
+     * Ambil daftar pesanan milik satu user.
      */
     public function getOrdersByUser($userId)
     {
         $this->db->select('orders.*, users.name AS customer_name, users.email AS customer_email');
-        $this->db->from($this->table); // orders
+        $this->db->from($this->table);
         $this->db->join('users', 'users.id = orders.user_id', 'left');
         $this->db->where('orders.user_id', $userId);
         $this->db->order_by('orders.order_date', 'DESC');
@@ -87,9 +92,7 @@ class Order_model extends MY_Model
     }
 
     /**
-     * Ambil semua pesanan (untuk admin) dengan informasi user.
-     *
-     * @return array
+     * Ambil semua pesanan untuk admin beserta data user.
      */
     public function getAllWithUser()
     {
@@ -99,42 +102,5 @@ class Order_model extends MY_Model
         $this->db->order_by('orders.order_date', 'DESC');
 
         return $this->db->get()->result_array();
-    }
-
-    /**
-     * Ambil detail satu pesanan beserta item-itemnya.
-     *
-     * @param int $orderId
-     *
-     * @return array|null ['order' => ..., 'items' => [...]] atau null jika tidak ada
-     */
-    public function getOrderWithItems($orderId)
-    {
-        // Ambil order
-        $order = $this->getById($orderId);
-        if (!$order) {
-            return null;
-        }
-
-        // Ambil item-item
-        $items = $this->Order_item_model->getItemsByOrder($orderId);
-
-        return [
-            'order' => $order,
-            'items' => $items,
-        ];
-    }
-
-    /**
-     * Perbarui status pesanan.
-     *
-     * @param int    $id     ID order
-     * @param string $status status baru (pending/paid/shipped/completed)
-     *
-     * @return bool
-     */
-    public function updateStatus($id, $status)
-    {
-        return $this->update($id, ['status' => $status]);
     }
 }

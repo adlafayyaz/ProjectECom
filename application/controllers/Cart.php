@@ -8,14 +8,15 @@ class Cart extends MY_Controller
     {
         parent::__construct();
         $this->load->model(['Cart_model', 'Product_model', 'Order_model']);
-        // Hanya pengguna terautentikasi yang boleh mengakses cart
+
+        // Wajib login
         if (!$this->session->userdata('user_id')) {
             redirect('auth/login');
         }
     }
 
     /**
-     * Menampilkan isi keranjang pengguna.
+     * Tampilkan isi cart.
      */
     public function index()
     {
@@ -23,27 +24,28 @@ class Cart extends MY_Controller
         $data['title'] = 'Cart';
         $data['items'] = $this->Cart_model->getItems($userId);
 
-        // SEBELUM:
-        // $this->load->view('cart/index', $data);
-
-        // SESUDAH:
         $this->render('cart/index', $data);
     }
 
+    /**
+     * Tambah produk ke cart.
+     */
     public function add($productId)
     {
         $userId = $this->session->userdata('user_id');
+
         if ($productId && $userId) {
             $this->Cart_model->addOrUpdate($userId, $productId, 1);
             $this->session->set_flashdata('success', 'Item added to cart');
         }
 
-        // balik ke halaman sebelumnya atau ke daftar produk
         $ref = $this->input->server('HTTP_REFERER') ?: site_url('products');
         redirect($ref);
     }
 
-    // UPDATE
+    /**
+     * Update jumlah item.
+     */
     public function update()
     {
         $userId = $this->session->userdata('user_id');
@@ -59,26 +61,35 @@ class Cart extends MY_Controller
         redirect('cart');
     }
 
-    // REMOVE
+    /**
+     * Hapus item dari cart.
+     */
     public function remove($productId)
     {
         $userId = $this->session->userdata('user_id');
+
         if ($userId && $productId) {
             $this->Cart_model->removeItem($userId, $productId);
             $this->session->set_flashdata('success', 'Item removed');
         }
+
         redirect('cart');
     }
 
-    // CHECKOUT
+    /**
+     * Checkout dan buat order.
+     */
     public function checkout()
     {
         $userId = $this->session->userdata('user_id');
+
         if (!$userId) {
             redirect('auth/login');
         }
+
         $orderId = $this->Order_model->createFromCart($userId);
         $this->Cart_model->clearCart($userId);
+
         $this->session->set_flashdata('success', 'Thank you! Your order has been placed.');
         redirect('account');
     }

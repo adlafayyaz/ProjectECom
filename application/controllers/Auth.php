@@ -11,9 +11,12 @@ class Auth extends MY_Controller
         $this->load->library('form_validation');
     }
 
+    /**
+     * Halaman login user.
+     */
     public function login()
     {
-        // Kalau sudah login, langsung ke account
+        // Jika sudah login
         if ($this->session->userdata('user_id')) {
             redirect('account');
         }
@@ -27,18 +30,17 @@ class Auth extends MY_Controller
             if ($this->form_validation->run()) {
                 $email = $this->input->post('email', true);
                 $password = $this->input->post('password');
-
                 $user = $this->User_model->getByEmail($email);
 
                 if ($user && password_verify($password, $user['password'])) {
-                    // simpan data user di session
+                    // Set session user
                     $this->session->set_userdata([
                         'user_id' => $user['id'],
                         'role' => $user['role'],
                         'name' => $user['name'],
                     ]);
 
-                    // kalau admin, arahkan ke admin dashboard
+                    // Admin -> dashboard
                     if ($user['role'] === 'admin') {
                         redirect('admin/dashboard');
                     }
@@ -53,8 +55,12 @@ class Auth extends MY_Controller
         $this->render('auth/login', $data);
     }
 
+    /**
+     * Halaman register user.
+     */
     public function register()
     {
+        // Sudah login -> redirect
         if ($this->session->userdata('user_id')) {
             redirect('account');
         }
@@ -87,6 +93,9 @@ class Auth extends MY_Controller
         $this->render('auth/register', $data);
     }
 
+    /**
+     * Logout user.
+     */
     public function logout()
     {
         $this->session->sess_destroy();

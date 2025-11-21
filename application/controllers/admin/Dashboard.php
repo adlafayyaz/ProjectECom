@@ -10,6 +10,9 @@ class Dashboard extends Admin_Controller
         $this->load->model(['User_model', 'Product_model', 'Category_model', 'Order_model']);
     }
 
+    /**
+     * Tampilkan dashboard admin.
+     */
     public function index()
     {
         $data['title'] = 'Admin Dashboard';

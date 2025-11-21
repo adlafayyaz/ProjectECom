@@ -1,13 +1,16 @@
+<!-- Halaman Register -->
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
 
+            <!-- Flash success -->
             <?php if ($this->session->flashdata('success')) { ?>
                 <div class="alert alert-success">
                     <?php echo $this->session->flashdata('success'); ?>
                 </div>
             <?php } ?>
 
+            <!-- Flash error -->
             <?php if ($this->session->flashdata('error')) { ?>
                 <div class="alert alert-danger">
                     <?php echo $this->session->flashdata('error'); ?>
@@ -16,6 +19,7 @@
 
             <h1 class="h3 mb-4 text-center">Register</h1>
 
+            <!-- Form register -->
             <form method="post" action="<?php echo site_url('auth/register'); ?>">
                 <div class="mb-3">
                     <label class="form-label">Name</label>

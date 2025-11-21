@@ -8,38 +8,37 @@ class Favorites extends MY_Controller
     {
         parent::__construct();
         $this->load->model('Favourite_model');
+
+        // Wajib login
         if (!$this->session->userdata('user_id')) {
             redirect('auth/login');
         }
     }
 
     /**
-     * Menampilkan daftar produk favorit pengguna.
+     * Tampilkan list favorit user.
      */
     public function index()
     {
         $userId = $this->session->userdata('user_id');
+
         $data['title'] = 'Favorites';
         $data['items'] = $this->Favourite_model->getItems($userId);
 
-        // SEBELUM:
-        // $this->load->view('favourites/index', $data);
-
-        // SESUDAH:
         $this->render('favourites/index', $data);
     }
 
     /**
-     * Menambahkan atau menghapus favorit (toggle). Redirect kembali ke halaman sebelumnya.
-     *
-     * @param int $productId
+     * Toggle favorit produk.
      */
     public function toggle($productId)
     {
         $userId = $this->session->userdata('user_id');
+
         if ($productId && $userId) {
             $this->Favourite_model->toggle($userId, $productId);
         }
+
         $ref = $this->input->server('HTTP_REFERER') ?: base_url('products');
         redirect($ref);
     }

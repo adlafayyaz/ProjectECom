@@ -13,16 +13,12 @@ class Favourite_model extends MY_Model
     }
 
     /**
-     * Ambil semua produk favorit milik user, lengkap dengan data produk.
-     *
-     * @param int $userId
-     *
-     * @return array
+     * Ambil semua favorit user.
      */
     public function getItems($userId)
     {
         $this->db->select('favourites.*, products.name, products.price, products.image, products.slug');
-        $this->db->from($this->table); // favourites
+        $this->db->from($this->table);
         $this->db->join('products', 'products.id = favourites.product_id', 'left');
         $this->db->where('favourites.user_id', $userId);
 
@@ -30,12 +26,7 @@ class Favourite_model extends MY_Model
     }
 
     /**
-     * Cek apakah produk ini sudah difavoritkan user.
-     *
-     * @param int $userId
-     * @param int $productId
-     *
-     * @return bool
+     * Cek apakah produk favorit.
      */
     public function isFavourite($userId, $productId)
     {
@@ -48,12 +39,7 @@ class Favourite_model extends MY_Model
     }
 
     /**
-     * Toggle favourite: kalau belum ada → insert, kalau sudah ada → delete.
-     *
-     * @param int $userId
-     * @param int $productId
-     *
-     * @return array ['status' => 'added'|'removed', 'success' => bool]
+     * Toggle favorit (add/remove).
      */
     public function toggle($userId, $productId)
     {

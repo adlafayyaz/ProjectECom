@@ -30,7 +30,7 @@
 
             <!-- WOMEN -->
             <div class="col-md-4">
-                <a href="<?php echo site_url('products?category=2'); ?>" class="look-box">
+                <a href="<?php echo site_url('products?category=women'); ?>" class="look-box">
                     <div class="look-img"
                          style="background-image:url('<?php echo base_url('public/assets/images/women.jpg'); ?>');">
                     </div>
@@ -40,7 +40,7 @@
 
             <!-- MEN -->
             <div class="col-md-4">
-                <a href="<?php echo site_url('products?category=1'); ?>" class="look-box">
+                <a href="<?php echo site_url('products?category=men'); ?>" class="look-box">
                     <div class="look-img"
                          style="background-image:url('<?php echo base_url('public/assets/images/men.jpg'); ?>');">
                     </div>
@@ -50,7 +50,7 @@
 
             <!-- KIDS -->
             <div class="col-md-4">
-                <a href="<?php echo site_url('products?category=3'); ?>" class="look-box">
+                <a href="<?php echo site_url('products?category=kids'); ?>" class="look-box">
                     <div class="look-img"
                          style="background-image:url('<?php echo base_url('public/assets/images/kids.jpg'); ?>');">
                     </div>
@@ -59,5 +59,68 @@
             </div>
 
         </div>
+    </div>
+</section>
+
+<!-- Best Sellers Section -->
+<section class="py-5 best-seller-section">
+    <div class="container">
+
+        <!-- Header Best Seller -->
+        <div class="d-flex justify-content-between align-items-end mb-5">
+            <div>
+                <h2 class="fw-bold mb-1">Best Sellers</h2>
+                <p class="text-muted mb-0">Top picks for the season.</p>
+            </div>
+            <a href="<?php echo site_url('products'); ?>" class="view-all-link">
+                View All <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+
+        <!-- Grid best seller -->
+        <?php if (!empty($best_sellers)) { ?>
+            <div class="row g-4">
+                <?php foreach ($best_sellers as $item) { ?>
+                    <div class="col-6 col-md-3">
+                        <a href="<?php echo site_url('products/detail/'.($item['slug'] ?? $item['id'])); ?>"
+                           class="product-card">
+                            
+                            <!-- Gambar produk + badge kategori -->
+                            <div class="product-img-wrap">
+                                <?php if (!empty($item['category_name'])) { ?>
+                                    <span class="badge-category">
+                                        <?php echo htmlspecialchars($item['category_name']); ?>
+                                    </span>
+                                <?php } ?>
+
+                                <img src="<?php echo base_url('public/assets/images/'.($item['image'] ?? 'placeholder.jpg')); ?>"
+                                     alt="<?php echo htmlspecialchars($item['name']); ?>"
+                                     class="product-img">
+
+                                <!-- Tombol hover -->
+                                <div class="product-action">
+                                    <button class="btn btn-light btn-sm rounded-0 px-3">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Info produk singkat -->
+                            <div class="product-info mt-3">
+                                <h5 class="product-title text-truncate">
+                                    <?php echo htmlspecialchars($item['name']); ?>
+                                </h5>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="product-price">
+                                        Rp <?php echo number_format($item['price'], 0, ',', '.'); ?>
+                                    </span>
+                                    <i class="bi bi-heart text-muted small-icon"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
     </div>
 </section>

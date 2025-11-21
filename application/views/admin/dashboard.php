@@ -1,5 +1,8 @@
+<!-- Halaman dashboard admin -->
 <h2>Dashboard</h2>
+
 <div class="row mt-4">
+    <!-- Card jumlah produk -->
     <div class="col-sm-6 col-lg-3 mb-4">
         <div class="card text-white bg-primary h-100">
             <div class="card-body">
@@ -8,6 +11,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Card jumlah kategori -->
     <div class="col-sm-6 col-lg-3 mb-4">
         <div class="card text-white bg-success h-100">
             <div class="card-body">
@@ -16,6 +21,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Card jumlah orders -->
     <div class="col-sm-6 col-lg-3 mb-4">
         <div class="card text-white bg-warning h-100">
             <div class="card-body">
@@ -24,6 +31,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Card jumlah users -->
     <div class="col-sm-6 col-lg-3 mb-4">
         <div class="card text-white bg-danger h-100">
             <div class="card-body">

@@ -32,7 +32,6 @@ class Categories extends Admin_Controller
     {
         $data['title'] = 'Add Category';
 
-        // pakai template admin
         $this->render('admin/category_form', $data);
     }
 

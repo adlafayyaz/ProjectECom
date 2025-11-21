@@ -8,11 +8,16 @@ class Orders extends Admin_Controller
     {
         parent::__construct();
         $this->load->model(['Order_model', 'Order_item_model', 'User_model']);
+
+        // Hanya admin yang bisa akses
         if ($this->session->userdata('role') !== 'admin') {
             redirect('auth/login');
         }
     }
 
+    /**
+     * List semua order.
+     */
     public function index()
     {
         $data['title'] = 'Manage Orders';
@@ -21,6 +26,9 @@ class Orders extends Admin_Controller
         $this->render('admin/orders', $data);
     }
 
+    /**
+     * Detail order.
+     */
     public function show($id)
     {
         $order = $this->Order_model->getById($id);
@@ -32,15 +40,19 @@ class Orders extends Admin_Controller
         $data['order'] = $order;
         $data['items'] = $this->Order_item_model->getItemsByOrder($id);
 
-        // pakai template admin
         $this->render('admin/order_detail', $data);
     }
 
+    /**
+     * Update status order.
+     */
     public function update_status($id)
     {
         $status = $this->input->post('status');
+
         $this->Order_model->update($id, ['status' => $status]);
         $this->session->set_flashdata('success', 'Order status updated');
+
         redirect('admin/orders');
     }
 }

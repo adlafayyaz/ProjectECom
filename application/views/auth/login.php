@@ -1,6 +1,9 @@
+<!-- Halaman Login -->
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
+
+            <!-- Flash error -->
             <?php if ($this->session->flashdata('error')) { ?>
                 <div class="alert alert-danger">
                     <?php echo $this->session->flashdata('error'); ?>
@@ -9,6 +12,7 @@
 
             <h1 class="h3 mb-4 text-center">Login</h1>
 
+            <!-- Form login -->
             <form method="post" action="<?php echo site_url('auth/login'); ?>">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
@@ -26,6 +30,7 @@
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
 
+            <!-- Link ke register -->
             <p class="text-center mt-3">
                 Belum punya akun?
                 <a href="<?php echo site_url('auth/register'); ?>">Register</a>
